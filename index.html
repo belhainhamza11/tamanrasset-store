@@ -5,16 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kemei 2299 | Tamanrasset Store</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#171717}
-.wrap{max-width:620px;margin:auto;padding:14px}.brand{text-align:center;font-weight:900;font-size:22px;padding:8px 0 14px}
-.card{background:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 28px #00000012}
-.product-img{width:100%;border-radius:18px;display:block}
-.badge{display:inline-block;background:#111;color:#fff;border-radius:10px;padding:7px 11px;margin-top:15px;font-weight:800}
-h1{font-size:28px;margin:14px 0 8px}.price{font-size:32px;font-weight:900}.old{text-decoration:line-through;color:#999;font-size:18px;margin-right:8px}.save{display:inline-block;background:#e8f7ec;color:#137337;padding:6px 10px;border-radius:10px;font-weight:800;margin-top:7px}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f4f5f7;color:#171717}
+.wrap{max-width:620px;margin:auto;padding:14px}.brand{text-align:center;font-weight:900;font-size:23px;padding:8px 0 14px}
+.card{background:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.product-img{width:100%;display:block;border-radius:18px}.badge{display:inline-block;background:#111;color:#fff;border-radius:10px;padding:7px 11px;margin-top:15px;font-weight:800}
+h1{font-size:28px;margin:14px 0 8px}.price{font-size:32px;font-weight:900}.old{text-decoration:line-through;color:#999;font-size:18px;margin-right:8px}
+.save{display:inline-block;background:#e8f7ec;color:#137337;padding:6px 10px;border-radius:10px;font-weight:800;margin-top:7px}
 .info{display:grid;gap:9px;margin:18px 0}.info div{background:#f7f7f7;padding:12px;border-radius:12px}
-form{display:grid;gap:11px;margin-top:14px}label{font-weight:800}input,textarea{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:16px}button{border:0;border-radius:14px;padding:16px;background:#111;color:#fff;font-size:18px;font-weight:900;cursor:pointer}
-.total{background:#fff7df;border-radius:13px;padding:13px;font-weight:900;margin-top:10px}
-.note{font-size:13px;color:#666;line-height:1.6}.success{display:none;background:#eaf8ee;color:#155b2c;padding:15px;border-radius:13px;margin-top:15px;font-weight:800}
+.total{background:#fff5d8;border-radius:13px;padding:13px;font-weight:900;margin:14px 0}
+form{display:grid;gap:11px;margin-top:14px}label{font-weight:800;display:block;margin-bottom:6px}
+input,textarea{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:16px;font-family:inherit}
+button{border:0;border-radius:14px;padding:16px;background:#111;color:#fff;font-size:18px;font-weight:900;cursor:pointer;width:100%}
+button:disabled{opacity:.6;cursor:not-allowed}.success{display:none;background:#eaf8ee;color:#155b2c;padding:15px;border-radius:13px;margin-top:15px;font-weight:800;line-height:1.7}
+.error{display:none;background:#fff0f0;color:#9b1c1c;padding:15px;border-radius:13px;margin-top:15px;font-weight:800;line-height:1.7}
+.note{font-size:13px;color:#666;line-height:1.6}
 </style>
 </head>
 <body>
@@ -29,24 +33,58 @@ form{display:grid;gap:11px;margin-top:14px}label{font-weight:800}input,textarea{
 <div class="info">
 <div>🚚 التوصيل داخل تمنراست: <b>300 دج</b></div>
 <div>💵 الدفع عند الاستلام</div>
-<div>📦 الطقم يحتوي على آلة الحلاقة والملحقات الظاهرة في الصورة</div>
+<div>📦 آلة حلاقة مع الملحقات الظاهرة في الصورة</div>
 </div>
-<div class="total">💰 الإجمالي: 3,100 دج شامل التوصيل</div>
+<div class="total">💰 الإجمالي للكمية 1: 3,100 دج شامل التوصيل</div>
 <h2>اطلب الآن</h2>
 <form id="orderForm">
-<div><label>الاسم واللقب</label><input name="name" required placeholder="اكتب اسمك"></div>
-<div><label>رقم الهاتف</label><input name="phone" required inputmode="tel" placeholder="05xxxxxxxx"></div>
-<div><label>العنوان</label><textarea name="address" required rows="3" placeholder="الحي / المنطقة / العنوان"></textarea></div>
-<div><label>الكمية</label><input name="qty" type="number" min="1" value="1" required></div>
-<button type="submit">🛒 تأكيد الطلب</button>
+<div><label for="name">الاسم واللقب</label><input id="name" name="name" required placeholder="اكتب اسمك"></div>
+<div><label for="phone">رقم الهاتف</label><input id="phone" name="phone" required inputmode="tel" placeholder="05xxxxxxxx"></div>
+<div><label for="address">العنوان</label><textarea id="address" name="address" required rows="3" placeholder="الحي / المنطقة / العنوان بالتفصيل"></textarea></div>
+<div><label for="quantity">الكمية</label><input id="quantity" name="quantity" type="number" min="1" value="1" required></div>
+<button id="submitBtn" type="submit">🛒 تأكيد الطلب</button>
 </form>
-<div id="success" class="success">✅ تم تسجيل طلبك مبدئيًا. سنتواصل معك هاتفيًا لتأكيده.</div>
-<p class="note">بعد نشر الصفحة سنربط نموذج الطلب بوسيلة استقبال حقيقية للطلبات قبل تشغيل إعلانات Facebook.</p>
+<div id="success" class="success">✅ تم إرسال طلبك بنجاح!<br>سنتواصل معك هاتفيًا لتأكيد الطلب قبل التوصيل.</div>
+<div id="error" class="error">❌ تعذر إرسال الطلب حاليًا.<br>يرجى المحاولة مرة أخرى.</div>
+<p class="note">الدفع عند الاستلام. سيتم الاتصال بك لتأكيد الطلب.</p>
 </div>
 </div>
 <script>
-document.getElementById('orderForm').addEventListener('submit', function(e){
-e.preventDefault();document.getElementById('success').style.display='block';this.reset();
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_b9Ns8NM9OunSQbDnUqZ7VhjjbJzDXVeVOb5DLWsI3cUCuW-83MDs8fxtML27PnRy/exec";
+const form = document.getElementById("orderForm");
+const button = document.getElementById("submitBtn");
+const success = document.getElementById("success");
+const errorBox = document.getElementById("error");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  success.style.display = "none";
+  errorBox.style.display = "none";
+  button.disabled = true;
+  button.textContent = "جاري إرسال الطلب...";
+
+  const quantity = Number(document.getElementById("quantity").value);
+  const total = (2800 * quantity) + 300;
+  const data = new URLSearchParams();
+  data.append("name", document.getElementById("name").value.trim());
+  data.append("phone", document.getElementById("phone").value.trim());
+  data.append("address", document.getElementById("address").value.trim());
+  data.append("quantity", String(quantity));
+  data.append("product", "Kemei 2299");
+  data.append("total", total + " دج");
+
+  try {
+    await fetch(SCRIPT_URL, {method:"POST", mode:"no-cors", body:data});
+    form.reset();
+    document.getElementById("quantity").value = "1";
+    success.style.display = "block";
+    button.textContent = "تم إرسال الطلب ✓";
+    setTimeout(() => {button.disabled=false; button.textContent="🛒 تأكيد الطلب";}, 4000);
+  } catch (err) {
+    errorBox.style.display = "block";
+    button.disabled = false;
+    button.textContent = "🛒 تأكيد الطلب";
+  }
 });
 </script>
 </body>
